@@ -1,0 +1,56 @@
+import { Client } from "cassandra-driver";
+import { client } from "../db/conection";
+import { User } from "./userModel";
+import { v4 } from 'uuid';
+
+export class UserRepository {
+    private static users: User[] = []
+
+    static async save(data: Omit<User, "id">): Promise<User | null> {
+        const id = v4();
+        await client.execute(
+            'INSERT INTO usuario (id, name, password, city) VALUES ( ?, ?, ?, ?);', 
+            [id, data.name, data.password, data.city]
+        )
+        return { id, ...data }
+    }
+
+    static async find(id: string): Promise<User | null> {
+        return UserRepository.users.find(item => item.id === id) ?? null
+    }
+
+    static async findByEmail(email: string): Promise<User | null> {
+        return null
+    }
+
+    static async getAll(): Promise<User[]> {
+        const result = await client.execute(`SELECT * FROM usuario;`)
+        const data = result.rows.map((row) => ({
+            id: row.id,
+            name: row.name,
+            password: row.password,
+            city: row.city
+        }))
+        console.log(data)
+        return data
+    }
+
+    static async update(id: string, data: Omit<User, "id">): Promise<User | null> {
+
+        await client.execute(
+            'UPDATE usuario SET name = ?, email = ?, password = ?, city = ? WHERE id = ?;', 
+            [data.name, data.password, data.city, id]
+        )
+        return { id, ...data }
+    }
+
+    static async delete(id: string): Promise<User | null> {
+
+        await client.execute(
+            'DELETE FROM usuario WHERE id = ?;', 
+            [id]
+        )
+        return null
+    }
+}
+

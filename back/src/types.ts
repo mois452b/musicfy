@@ -1,0 +1,1 @@
+export type CustomResponseServiceType<T> = [Error, null] | [null, T]
