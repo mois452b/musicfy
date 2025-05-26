@@ -3,6 +3,6 @@ export interface Music {
     title: string;
     genre: string;
     artiste: string;
-    souce: string;
+    source: string;
     image_url: string
 }

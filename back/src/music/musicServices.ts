@@ -6,7 +6,7 @@ export const createMusic = async ( name: string): Promise<CustomResponseServiceT
     let data: Music | null = null;
     let error: Error | null = null;
     try {
-        const result = await MusicRepository.save({ name, createdAt: new Date() });
+        const result = null//await MusicRepository.save({ name, createdAt: new Date() });
         if (result) {
             data = result;
         } else {
