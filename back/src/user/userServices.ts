@@ -50,22 +50,6 @@ export const getUserById = async (userId: string): Promise<CustomResponseService
     return [error, data] as CustomResponseServiceType<User>;
 };
 
-export const getUserByEmail = async (email: string): Promise<CustomResponseServiceType<User>> => {
-    let data: User | null = null;
-    let error: Error | null = null;
-    try {
-        const result = await UserRepository.findByEmail(email);
-        if (result) {
-            data = result;
-        } else {
-            error = new Error("algo salio mal");
-        }
-    } catch (err) {
-        error = new Error(err as string);
-    }
-    return [error, data] as CustomResponseServiceType<User>;
-}
-
 export const updateUser = async (userId: string, newData: Omit<User, "id">): Promise<CustomResponseServiceType<User>> => {
     let data: User | null = null;
     let error: Error | null = null;

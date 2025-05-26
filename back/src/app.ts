@@ -1,3 +1,4 @@
+import musicRouter from "./music/musicRoutes"
 import userRouter from "./user/userRoutes"
 import authRouter from "./auth/authRoutes"
 import express from 'express';
@@ -12,5 +13,6 @@ app.use( cors() )
 
 app.use('/api/auths', authRouter)
 app.use('/api/users', userRouter)
+app.use('/api/musics', musicRouter)
 
 export default app

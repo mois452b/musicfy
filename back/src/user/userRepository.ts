@@ -16,11 +16,9 @@ export class UserRepository {
     }
 
     static async find(id: string): Promise<User | null> {
-        return UserRepository.users.find(item => item.id === id) ?? null
-    }
-
-    static async findByEmail(email: string): Promise<User | null> {
-        return null
+        const result = await client.execute(`SELECT * FROM usuario WHERE id = ?;`, [id])
+        const data = result.first() ?? null
+        return { id: data.id, name: data.name, password: data.password, city: data.city }
     }
 
     static async getAll(): Promise<User[]> {
@@ -31,14 +29,13 @@ export class UserRepository {
             password: row.password,
             city: row.city
         }))
-        console.log(data)
         return data
     }
 
     static async update(id: string, data: Omit<User, "id">): Promise<User | null> {
 
         await client.execute(
-            'UPDATE usuario SET name = ?, email = ?, password = ?, city = ? WHERE id = ?;', 
+            'UPDATE usuario SET name = ?, password = ?, city = ? WHERE id = ?;', 
             [data.name, data.password, data.city, id]
         )
         return { id, ...data }
