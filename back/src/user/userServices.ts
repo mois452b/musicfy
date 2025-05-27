@@ -82,3 +82,19 @@ export const deleteUser = async (userId: string): Promise<CustomResponseServiceT
     }
     return [error, data] as CustomResponseServiceType<User>;
 };
+
+export const getUserByEmail =  async (userId: string): Promise<CustomResponseServiceType<User>> => {
+    let data: User | null = null;
+    let error: Error | null = null;
+    try {
+        const result = null;
+        if (result) {
+            data = result;
+        } else {
+            error = new Error("algo salio mal");
+        }
+    } catch (err) {
+        error = new Error(err as string);
+    }
+    return [error, data] as CustomResponseServiceType<User>;
+};
