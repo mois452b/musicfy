@@ -18,12 +18,6 @@ const Sidebar = () => {
                 <span>Buscar</span>
               </a>
             </li>
-            <li>
-              <a href="#" className="flex items-center text-gray-400 hover:text-white transition">
-                <span className="mr-3">📚</span>
-                <span>Tu biblioteca</span>
-              </a>
-            </li>
           </ul>
         </nav>
       </div>
