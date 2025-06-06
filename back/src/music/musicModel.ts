@@ -2,7 +2,8 @@ export interface Music {
     id: string;
     title: string;
     genre: string;
-    artiste: string;
+    artist: string;
     source: string;
-    image_url: string
+    image_url: string;
+    listenings: number
 }

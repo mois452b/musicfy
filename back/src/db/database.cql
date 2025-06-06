@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS musica (
   genre TEXT,
   artist TEXT,
   source TEXT,
-  image_url TEXT
+  image_url TEXT,
+  listenings INT
 );
 
 CREATE TABLE IF NOT EXISTS escucha (

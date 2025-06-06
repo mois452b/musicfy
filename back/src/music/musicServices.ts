@@ -2,6 +2,22 @@ import { Music } from "./musicModel";
 import { MusicRepository } from "./musicRepository";
 import { CustomResponseServiceType } from "../types";
 
+export const getGenres = async (): Promise<CustomResponseServiceType<string[]>> => {
+    let data: string[] | null = null;
+    let error: Error | null = null;
+    try {
+        const result = await MusicRepository.getGenres();
+        if (result) {
+            data = result;
+        } else {
+            error = new Error("algo salio mal");
+        }
+    } catch (err) {
+        error = new Error(err as string);
+    }
+    return [error, data] as CustomResponseServiceType<string[]>;
+};
+
 export const createMusic = async ( name: string): Promise<CustomResponseServiceType<Music>> => {
     let data: Music | null = null;
     let error: Error | null = null;
