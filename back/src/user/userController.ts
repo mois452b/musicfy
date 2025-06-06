@@ -1,8 +1,17 @@
 import { Request, Response } from 'express';
-import { deleteUser, getUserById, getAllUsers, updateUser } from './userServices';
+import { deleteUser, getUserById, getAllUsers, updateUser, getCities } from './userServices';
 import { CustomRequest } from '../auth/authMiddleware';
 
 export class UserController {
+
+    static async getCities(req: Request, res: Response): Promise<void> {
+        const [error, data] = await getCities()
+        if (error) {
+            res.status(500).json({ ok: false, message: error.message })
+            return;
+        }
+        res.status(200).json({ ok: true, message: "data obtained successfully", data });
+    }
     static async getAll(req: Request, res: Response): Promise<void> {
         const [error, data] = await getAllUsers()
         if (error) {

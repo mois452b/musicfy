@@ -2,8 +2,49 @@ import { Client } from "cassandra-driver";
 import { client } from "../db/conection";
 import { Music } from "./musicModel";
 import { v4 } from 'uuid';
+import { log } from "console";
 export class MusicRepository {
     private static musics: Music[] = []
+
+    static async getRecommendationsByCity(cityName: string): Promise<Music[]> {
+        
+        const userResult = await client.execute('SELECT * FROM usuario WHERE city = ? ALLOW FILTERING;', [cityName]);
+        const escuchaResult = await client.execute('SELECT * FROM escucha;');
+        const musicResult = await client.execute('SELECT * FROM musica;');
+
+        const users = userResult.rows;
+        const escuchas = escuchaResult.rows;
+        const musicas = musicResult.rows;
+        
+        const musicCountMap: { [key: string]: number } = {};
+
+        escuchas.forEach(escucha => {
+            const user = users.find(user => user.id.toString() == escucha.user_id.toString());
+            if (user) {
+                const music = musicas.find(music => music.id.toString() === escucha.music_id.toString());
+                if (music) {
+                    musicCountMap[music.id] = (musicCountMap[music.id] || 0) + 1;
+                }
+            }
+        });
+        const sortedMusicIds = Object.keys(musicCountMap).sort((a, b) => musicCountMap[b] - musicCountMap[a]);
+        const topMusicIds = sortedMusicIds.slice(0, 8);
+        const topMusics = topMusicIds.map(id => musicas.find(music => music.id.toString() === id));
+
+        if (topMusics.length > 0) {
+            return topMusics.map(music => ({
+                id: music?.id,
+                title: music?.title,
+                genre: music?.genre,
+                artist: music?.artist,
+                source: music?.source,
+                image_url: music?.image_url,
+                listenings: music?.listenings,
+            }));
+        }
+        console.log(`No recommendations found for city: ${cityName}`);
+        return [];
+    }
 
     static async getGenres(): Promise<string[]> {
         const result = await client.execute('SELECT genre FROM musica;')
