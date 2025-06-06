@@ -6,6 +6,14 @@ import { v4 } from 'uuid';
 export class UserRepository {
     private static users: User[] = []
 
+    static async getCities(): Promise<string[]> {
+        const result = await client.execute('SELECT city FROM usuario;')
+        const cities = new Set<string>(
+            result.rows.map(row => row.city)
+        );
+        return [...cities]
+    }
+    
     static async save(data: Omit<User, "id">): Promise<User | null> {
         const id = v4();
         await client.execute(

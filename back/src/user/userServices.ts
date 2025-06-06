@@ -18,6 +18,22 @@ export const createUser = async ( name: string, email: string, password: string)
     return [error, data] as CustomResponseServiceType<User>;
 };
 
+export const getCities = async (): Promise<CustomResponseServiceType<string[]>> => {
+    let data: string[] | null = null;
+    let error: Error | null = null;
+    try {
+        const result = await UserRepository.getCities();
+        if (result) {
+            data = result;
+        } else {
+            error = new Error("algo salio mal");
+        }
+    } catch (err) {
+        error = new Error(err as string);
+    }
+    return [error, data] as CustomResponseServiceType<string[]>;
+};
+
 export const getAllUsers = async (): Promise<CustomResponseServiceType<User[]>> => {
     let data: User[] | null = null;
     let error: Error | null = null;

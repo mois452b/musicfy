@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PlayerControls from "./PlayerControls"; // Asegúrate que esté en la ruta correcta
 import DisplayMusics from "./DisplayMusics";
 
-interface Song {
+export interface Song {
   id: string;
   title: string;
   genre: string;

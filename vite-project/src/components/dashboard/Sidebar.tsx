@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
 
 const Sidebar = (
-  { onSearch, setSelectedGenre, selectedGenre }: 
-  { onSearch: (query: string) => void, setSelectedGenre: (genre: string) => void, selectedGenre: string }
+  { onSearch, setSelectedGenre, selectedGenre, selectedCity, setSelectedCity, selected, setSelected }: 
+  { 
+    onSearch: (query: string) => void, 
+    setSelectedGenre: (genre: string) => void, 
+    selectedGenre: string, 
+    selectedCity: string, 
+    setSelectedCity: (city: string) => void,
+    selected: string,
+    setSelected: (selected: string) => void
+  }
 ) => {
   const [query, setQuery] = useState("");
   const [genres, setGenres] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -18,6 +27,13 @@ const Sidebar = (
       .then((res) => res.json())
       .then((data) => setGenres(data.data || []))
       .catch((error) => console.error("Error cargando géneros:", error));
+  }, []);
+
+  useEffect(() => {
+    fetch("https://didactic-trout-5ggxpq5w7w69cq5r-5000.app.github.dev/api/users/cities")
+      .then((res) => res.json())
+      .then((data) => setCities(data.data || []))
+      .catch((error) => console.error("Error cargando ciudades:", error));
   }, []);
 
   return (
@@ -34,10 +50,19 @@ const Sidebar = (
         placeholder="Buscar canción"
         className="w-full p-2 rounded bg-gray-800 text-white mb-4"
       />
-
-      <h3 className="text-white text-lg font-semibold mb-2">Géneros</h3>
+      <div className=" flex gap-4" >
+        <h3 
+          className="text-white text-lg font-semibold mb-2 cursor-pointer"
+          onClick={() => setSelected("genre")}
+        >Géneros</h3>
+        <h3 
+          className="text-white text-lg font-semibold mb-2 cursor-pointer"
+          onClick={() => setSelected("city")}
+        >Ciudad</h3>
+      </div>
+      
       <ul className="space-y-2">
-        {genres.map((genre, index) => (
+        { selected == "genre" && genres.map((genre, index) => (
           <li key={index}>
             <button
               onClick={() => setSelectedGenre(genre === selectedGenre ? "" : genre)}
@@ -48,6 +73,21 @@ const Sidebar = (
               }`}
             >
               🎵 {genre}
+            </button>
+          </li>
+        ))}
+
+        { selected == "city" && cities.map((city, index) => (
+          <li key={index}>
+            <button
+              onClick={() => setSelectedCity(city === selectedGenre ? "" : city)}
+              className={`w-full text-left transition ${
+              city === selectedCity
+                ? "text-green-400 font-bold"
+                : "text-gray-400 hover:text-green-400"
+              }`}
+            >
+              🌆 {city}
             </button>
           </li>
         ))}
