@@ -32,7 +32,10 @@ const Login = ({ setToken }: { setToken: (token: string) => void }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+    <div 
+      className="min-h-screen bg-cover bg-center flex items-center justify-center"
+      style={{ backgroundImage: "url(/Fondo.jpg)" }} 
+    >
       <div className="bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <h1 className="text-3xl text-center font-bold text-green-500 mb-8 bg-clip-text animate-pulse bg-gradient-to-r from-green-400 to-green-600">
           Musicfy
