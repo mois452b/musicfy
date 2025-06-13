@@ -50,7 +50,7 @@ const RecommendedSection = ({ searchTerm, selectedGenre }: { searchTerm: string,
   return (
     <div className="mb-28">
       <button
-        className="group relative inline-flex items-center justify-center px-6 py-2 rounded-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-semibold shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+        className="my-3 group relative inline-flex items-center justify-center px-6 py-2 rounded-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-semibold shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
         onClick={handleRecommendedClick}
       >
         <span className="absolute inset-0 rounded-full bg-green-700 opacity-0 group-hover:opacity-10 transition-opacity"></span>

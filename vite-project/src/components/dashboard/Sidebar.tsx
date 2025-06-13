@@ -39,7 +39,7 @@ const Sidebar = (
   return (
     <div className="w-64 bg-gray-900 h-screen fixed left-0 top-0 p-6 overflow-y-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600 drop-shadow-md">
+        <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600 drop-shadow-md bg-clip-text animate-pulse bg-gradient-to-r from-green-400 to-green-600">
             Musicfy
         </h1>
       </div>
@@ -52,11 +52,11 @@ const Sidebar = (
       />
       <div className=" flex gap-4" >
         <h3 
-          className="text-white text-lg font-semibold mb-2 cursor-pointer"
+          className="text-white text-lg font-semibold cursor-pointer px-3 py-1 rounded-lg transition-colors duration-200 hover:bg-green-600 hover:text-white"
           onClick={() => setSelected("genre")}
         >Géneros</h3>
         <h3 
-          className="text-white text-lg font-semibold mb-2 cursor-pointer"
+          className="text-white text-lg font-semibold cursor-pointer px-3 py-1 rounded-lg transition-colors duration-200 hover:bg-green-600 hover:text-white"
           onClick={() => setSelected("city")}
         >Ciudad</h3>
       </div>

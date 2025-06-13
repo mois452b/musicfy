@@ -24,13 +24,15 @@ const TopCity = (
 
     return (
     <div className="mb-28">
-      {/* <button
-        className="group relative inline-flex items-center justify-center px-6 py-2 rounded-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-semibold shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
-        onClick={handleRecommendedClick}
-      >
-        <span className="absolute inset-0 rounded-full bg-green-700 opacity-0 group-hover:opacity-10 transition-opacity"></span>
-        🎵 Ver Recomendados
-      </button> */}
+      <div className="relative mb-8">
+        <h2 className="text-3xl font-extrabold text-white tracking-wide">
+          <span className="inline-block bg-gradient-to-r from-green-400 to-green-600 text-transparent bg-clip-text animate-pulse">
+            Descubre las canciones más populares en {selectedCity}
+          </span>
+        </h2>
+        <div className="w-16 h-1 bg-green-500 rounded mt-2 animate-fade-in" />
+      </div>
+    
       <DisplayMusics musics={songs} onClick={(song) => handlePlay(song.source)}></DisplayMusics>
      
       {currentTrackId && <PlayerControls trackId={currentTrackId} />}
