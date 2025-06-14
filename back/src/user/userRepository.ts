@@ -29,6 +29,12 @@ export class UserRepository {
         return { id: data.id, name: data.name, password: data.password, city: data.city }
     }
 
+    static async findByName(name: string): Promise<User | null> {
+        const result = await client.execute(`SELECT * FROM usuario WHERE name = ? ALLOW FILTERING;`, [name])
+        const data = result.first() ?? null
+        return { id: data.id, name: data.name, password: data.password, city: data.city }
+    }
+
     static async getAll(): Promise<User[]> {
         const result = await client.execute(`SELECT * FROM usuario;`)
         const data = result.rows.map((row) => ({

@@ -99,11 +99,11 @@ export const deleteUser = async (userId: string): Promise<CustomResponseServiceT
     return [error, data] as CustomResponseServiceType<User>;
 };
 
-export const getUserByEmail =  async (userId: string): Promise<CustomResponseServiceType<User>> => {
+export const getUserByName =  async (userName: string): Promise<CustomResponseServiceType<User>> => {
     let data: User | null = null;
     let error: Error | null = null;
     try {
-        const result = null;
+        const result = await UserRepository.findByName(userName);
         if (result) {
             data = result;
         } else {
